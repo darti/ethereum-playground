@@ -3,4 +3,22 @@ version : "3"
 services:
   bootnode:
     image: ethereum/client-go:alltools-stable
-    
+    command: bootnode --nodekey=/keys/boot.key
+    volumes:
+      - ethereum-keys:/keys
+
+  member:
+    image: ethereum/client-go:alltools-stable
+    depends_on:
+      - bootnode
+
+    command: sh /root/member.sh
+    volumes:
+      - ethereum-keys:/keys
+      - ./member.sh:/root/member.sh
+      - ./data/genesis:/data
+
+
+volumes:
+  ethereum-keys:
+     external: true
