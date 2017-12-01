@@ -7,7 +7,7 @@ services:
     volumes:
       - ethereum-keys:/keys
 
-  member:
+  master-node:
     image: ethereum/client-go:alltools-stable
     depends_on:
       - bootnode

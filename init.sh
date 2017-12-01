@@ -3,8 +3,9 @@
 IMAGE=ethereum/client-go:alltools-stable
 
 docker volume create ethereum-keys
+docker volume create ethereum-master
 
-docker run --rm -v $(pwd):/data $IMAGE geth --datadir /data/data/genesis init /data/genesis.json
+docker run --rm -v ethereum-master:/data -v $(pwd):/conf/ $IMAGE geth --datadir /data init /conf/genesis.json
 
 docker run --rm -v ethereum-keys:/keys $IMAGE bootnode -genkey /keys/boot.key
 
