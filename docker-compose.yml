@@ -3,7 +3,7 @@ version : "3"
 services:
   bootnode:
     image: ethereum/client-go:alltools-stable
-    command: bootnode --nodekey=/keys/boot.key -addr 0.0.0.0:30303
+    command: bootnode --nodekey=/conf/boot.key -addr 0.0.0.0:30303
     volumes:
       - ./conf:/conf
 

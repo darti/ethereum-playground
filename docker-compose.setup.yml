@@ -5,4 +5,4 @@ services:
     command: "bootnode -genkey /conf/boot.key && bootnode -writeaddress -nodekey=/keys/boot.key > /keys/boot.url"
 
   node:
-    command: sh /root/member.sh
+    command: "geth init /conf/genesis.json"
