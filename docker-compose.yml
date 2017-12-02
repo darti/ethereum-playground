@@ -3,22 +3,15 @@ version : "3"
 services:
   bootnode:
     image: ethereum/client-go:alltools-stable
-    command: bootnode --nodekey=/keys/boot.key
+    command: bootnode --nodekey=/keys/boot.key -addr 0.0.0.0:30303
     volumes:
-      - ethereum-keys:/keys
+      - ./conf:/conf
 
-  master-node:
+  node:
     image: ethereum/client-go:alltools-stable
     depends_on:
       - bootnode
-
     command: sh /root/member.sh
     volumes:
-      - ethereum-keys:/keys
+      - ./conf:/conf
       - ./member.sh:/root/member.sh
-      - ./data/genesis:/data
-
-
-volumes:
-  ethereum-keys:
-     external: true
