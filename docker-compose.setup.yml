@@ -2,7 +2,10 @@ version : "3"
 
 services:
   bootnode:
-    command: "bootnode -genkey /conf/boot.key && bootnode -writeaddress -nodekey=/keys/boot.key > /keys/boot.url"
+    command: sh -c "bootnode -genkey /conf/boot.key && bootnode -writeaddress -nodekey=/conf/boot.key > /conf/boot.url"
 
+  master-node:
+    command: "geth init /conf/genesis.json"
+  
   node:
     command: "geth init /conf/genesis.json"
