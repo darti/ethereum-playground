@@ -3,31 +3,42 @@ version : "3"
 services:
   bootnode:
     image: ethereum/client-go:alltools-stable
-    command: bootnode -nodekey=/conf/boot.key -addr 0.0.0.0:30301 -verbosity=4 
+    command:  bootnode -nodekey=/conf/boot.key -addr 0.0.0.0:30301 -verbosity=4 #sh /root/start.sh bootnode
     volumes:
       - "./conf:/conf"
+      - "./start.sh:/root/start.sh"
       - "/etc/localtime:/etc/localtime:ro"
 
   master-node:
     image: ethereum/client-go:alltools-stable
     depends_on:
       - bootnode
-    command: sh /root/member.sh
+    command: sh /root/start.sh master
     ports:
       - 8545:8545
       - 8546:8546
     volumes:
       - "./conf:/conf"
-      - "./member.sh:/root/member.sh"
+      - "./start.sh:/root/start.sh"
       - "/etc/localtime:/etc/localtime:ro"
 
   node:
     image: ethereum/client-go:alltools-stable
     depends_on:
       - bootnode
-    command: sh /root/member.sh s
+    command: sh /root/start.sh node
     volumes:
       - "./conf:/conf"
-      - "./member.sh:/root/member.sh"
+      - "./start.sh:/root/start.sh"
+      - "/etc/localtime:/etc/localtime:ro"
+
+  miner:
+    image: ethereum/client-go:alltools-stable
+    depends_on:
+      - bootnode
+    command: sh /root/start.sh miner
+    volumes:
+      - "./conf:/conf"
+      - "./start.sh:/root/start.sh"
       - "/etc/localtime:/etc/localtime:ro"
 
