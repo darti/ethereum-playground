@@ -41,4 +41,8 @@ services:
       - "./conf:/conf"
       - "./start.sh:/root/start.sh"
       - "/etc/localtime:/etc/localtime:ro"
+      - "ethereum-dag:/root/.ethash"
 
+volumes:
+  ethereum-dag: 
+    external: true
